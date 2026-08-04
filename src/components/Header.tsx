@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, Bell, User, CheckCircle2, AlertCircle, RefreshCw, ExternalLink } from 'lucide-react';
+import { Activity, Bell, User, CheckCircle2, AlertCircle, RefreshCw, ExternalLink, LogOut } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: string;
+  user: { email: string; name: string; role: string } | null;
+  onLogout: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeTab }) => {
+export const Header: React.FC<HeaderProps> = ({ activeTab, user, onLogout }) => {
   const [apiStatus, setApiStatus] = useState<{ online: boolean; message: string }>({
     online: false,
     message: 'Checking API...',
@@ -32,6 +34,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab }) => {
   useEffect(() => {
     checkHealth();
   }, []);
+
+  const getInitials = (name: string) => {
+    if (!name) return 'U';
+    const parts = name.split(' ');
+    if (parts.length >= 2) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    return name.slice(0, 2).toUpperCase();
+  };
 
   return (
     <header id="header-root" className="bg-white border-b border-slate-200 px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 sticky top-0 z-20 shadow-xs">
@@ -84,23 +93,32 @@ export const Header: React.FC<HeaderProps> = ({ activeTab }) => {
 
         <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <button id="btn-notifications" className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors relative">
             <Bell className="w-4 h-4" />
             <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-indigo-600" />
           </button>
           
-          <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+          <div className="flex items-center gap-2.5 pl-2 border-l border-slate-200">
             <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">
-              SA
+              {getInitials(user?.name || 'Super Admin')}
             </div>
             <div className="hidden lg:block text-left">
-              <p className="text-xs font-semibold text-slate-800 leading-tight">Super Admin</p>
-              <p className="text-[10px] text-slate-500">admin@raxon.com</p>
+              <p className="text-xs font-semibold text-slate-800 leading-tight">{user?.name || 'Super Admin'}</p>
+              <p className="text-[10px] text-slate-500">{user?.email || 'admin@raxon.com'}</p>
             </div>
+            <button
+              id="btn-logout"
+              onClick={onLogout}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>
     </header>
   );
 };
+

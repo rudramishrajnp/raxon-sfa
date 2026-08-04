@@ -9,15 +9,17 @@ import {
   Receipt,
   BarChart3,
   Server,
-  Users
+  Users,
+  LogOut
 } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  onLogout?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onLogout }) => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'attendance', label: 'Attendance & Tracking', icon: Clock },
@@ -69,15 +71,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
         })}
       </nav>
 
-      <div className="p-4 border-t border-slate-800 bg-slate-950/50">
-        <div className="flex items-center gap-3">
-          <Users className="w-4 h-4 text-indigo-400 shrink-0" />
-          <div className="text-xs">
-            <p className="font-semibold text-slate-200">System Ready</p>
-            <p className="text-[10px] text-slate-400">Database & APIs online</p>
+      <div className="p-4 border-t border-slate-800 bg-slate-950/50 space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-indigo-400 shrink-0" />
+            <div className="text-xs">
+              <p className="font-semibold text-slate-200">System Ready</p>
+              <p className="text-[10px] text-slate-400">Database & APIs online</p>
+            </div>
           </div>
         </div>
+
+        {onLogout && (
+          <button
+            id="sidebar-btn-logout"
+            onClick={onLogout}
+            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-red-400 hover:bg-slate-800/80 transition-colors"
+          >
+            <LogOut className="w-4 h-4 text-slate-500 hover:text-red-400" />
+            <span>Sign Out Session</span>
+          </button>
+        )}
       </div>
     </aside>
   );
 };
+
