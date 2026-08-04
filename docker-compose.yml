@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: mr_tracker_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mr_tracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mr_tracker_user -d mr_tracker"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgres://mr_tracker_user:password@db:5432/mr_tracker
+      - JWT_SECRET=your_jwt_secret_key_here
+      - FIREBASE_SERVICE_ACCOUNT={}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

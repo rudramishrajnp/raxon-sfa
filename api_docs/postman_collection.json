@@ -1,0 +1,87 @@
+{
+  "info": {
+    "name": "Raxon Sales & Operations API",
+    "description": "Postman collection for all Raxon endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"EMP001\",\n  \"password\": \"secret123\",\n  \"deviceId\": \"DEV-8901\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance",
+      "item": [
+        {
+          "name": "Punch In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"latitude\": 28.7041,\n  \"longitude\": 77.1025,\n  \"timestamp\": \"2026-08-01T09:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attendance/punch-in",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "punch-in"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "MTP",
+      "item": [
+        {
+          "name": "Submit MTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"month\": 8,\n  \"year\": 2026,\n  \"plan\": []\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/mtp/submit",
+              "host": ["{{base_url}}"],
+              "path": ["mtp", "submit"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

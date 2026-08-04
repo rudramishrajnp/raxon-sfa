@@ -1,0 +1,338 @@
+lib/features/admin/presentation/providers/admin_providers.dart:23:    // In real app, fetch from repository. For mock, just filtering state if we have all data.
+lib/features/admin/presentation/providers/admin_providers.dart:24:    // Simplifying for mock.
+lib/features/admin/data/services/scheduled_report_service.dart:7:    await Future.delayed(const Duration(seconds: 1));
+lib/features/admin/data/services/import_validation_engine.dart:7:  // Simplified validation engine for the mock implementation
+lib/features/admin/data/services/import_validation_engine.dart:11:    await Future.delayed(const Duration(seconds: 2));
+lib/features/admin/data/services/import_validation_engine.dart:16:    // Simulate dummy parsed rows
+lib/features/admin/data/services/import_validation_engine.dart:17:    final dummyRows = [
+lib/features/admin/data/services/import_validation_engine.dart:23:    for (var i = 0; i < dummyRows.length; i++) {
+lib/features/admin/data/services/import_validation_engine.dart:24:      var row = dummyRows[i];
+lib/features/admin/data/services/export_service.dart:6:    await Future.delayed(const Duration(seconds: 2));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:19:  final List<ProductPricingModel> _mockPricing = [
+lib/features/admin/data/repositories/pricing_sales_repository.dart:28:      sampleCost: 10.0,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:34:  final List<BatchModel> _mockBatches = [
+lib/features/admin/data/repositories/pricing_sales_repository.dart:49:  final List<PrimarySalesInvoiceModel> _mockSales = [
+lib/features/admin/data/repositories/pricing_sales_repository.dart:72:  final List<ImportHistoryModel> _mockHistory = [
+lib/features/admin/data/repositories/pricing_sales_repository.dart:87:    await Future.delayed(const Duration(milliseconds: 400));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:88:    return _mockPricing.toList();
+lib/features/admin/data/repositories/pricing_sales_repository.dart:93:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:94:    final index = _mockPricing.indexWhere((p) => p.id == pricing.id);
+lib/features/admin/data/repositories/pricing_sales_repository.dart:96:      _mockPricing[index] = pricing;
+lib/features/admin/data/repositories/pricing_sales_repository.dart:102:    await Future.delayed(const Duration(milliseconds: 400));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:103:    return _mockBatches.toList();
+lib/features/admin/data/repositories/pricing_sales_repository.dart:108:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:109:    _mockBatches.add(batch);
+lib/features/admin/data/repositories/pricing_sales_repository.dart:114:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:115:    final index = _mockBatches.indexWhere((b) => b.id == batchId);
+lib/features/admin/data/repositories/pricing_sales_repository.dart:117:      _mockBatches[index] = BatchModel(
+lib/features/admin/data/repositories/pricing_sales_repository.dart:118:        id: _mockBatches[index].id,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:119:        productId: _mockBatches[index].productId,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:120:        productName: _mockBatches[index].productName,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:121:        batchNumber: _mockBatches[index].batchNumber,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:122:        manufacturingDate: _mockBatches[index].manufacturingDate,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:123:        expiryDate: _mockBatches[index].expiryDate,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:124:        batchMrp: _mockBatches[index].batchMrp,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:125:        batchPtr: _mockBatches[index].batchPtr,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:126:        batchPts: _mockBatches[index].batchPts,
+lib/features/admin/data/repositories/pricing_sales_repository.dart:134:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:135:    return _mockSales.toList();
+lib/features/admin/data/repositories/pricing_sales_repository.dart:140:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:141:    return _mockHistory.toList();
+lib/features/admin/data/repositories/pricing_sales_repository.dart:146:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/pricing_sales_repository.dart:147:    _mockHistory.add(history);
+lib/features/admin/data/repositories/analytics_repository.dart:12:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/analytics_repository.dart:25:      samplesDistributed: 12000,
+lib/features/admin/data/repositories/analytics_repository.dart:35:    await Future.delayed(const Duration(milliseconds: 400));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:19:  final List<HolidayModel> _mockHolidays = [
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:30:  final List<BroadcastMessageModel> _mockBroadcasts = [
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:42:  final List<NotificationTemplateModel> _mockTemplates = [
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:52:  final Map<String, DeliveryTrackingModel> _mockTracking = {
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:65:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:66:    return _mockHolidays.toList();
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:71:    await Future.delayed(const Duration(milliseconds: 200));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:72:    _mockHolidays.add(holiday);
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:77:    await Future.delayed(const Duration(milliseconds: 200));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:78:    final index = _mockHolidays.indexWhere((h) => h.id == holiday.id);
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:80:      _mockHolidays[index] = holiday;
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:86:    await Future.delayed(const Duration(milliseconds: 200));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:87:    _mockHolidays.removeWhere((h) => h.id == id);
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:92:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:93:    return _mockBroadcasts.toList();
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:98:    await Future.delayed(const Duration(milliseconds: 200));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:99:    _mockBroadcasts.add(broadcast);
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:100:    _mockTracking[broadcast.id] = DeliveryTrackingModel(
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:112:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:113:    return _mockTracking[broadcastId];
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:118:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/holiday_broadcast_repository.dart:119:    return _mockTemplates.toList();
+lib/features/admin/data/repositories/audit_log_repository.dart:13:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/audit_log_repository.dart:30:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/audit_log_repository.dart:46:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/master_data_repository.dart:16:  final List<DoctorMasterModel> _mockDoctors = [
+lib/features/admin/data/repositories/master_data_repository.dart:61:  final List<ChemistMasterModel> _mockChemists = [
+lib/features/admin/data/repositories/master_data_repository.dart:78:  final List<ProductMasterModel> _mockProducts = [
+lib/features/admin/data/repositories/master_data_repository.dart:92:      sampleAvailable: true,
+lib/features/admin/data/repositories/master_data_repository.dart:93:      samplePack: '1x4',
+lib/features/admin/data/repositories/master_data_repository.dart:101:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/master_data_repository.dart:102:    return _mockDoctors.toList();
+lib/features/admin/data/repositories/master_data_repository.dart:107:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/master_data_repository.dart:108:    final index = _mockDoctors.indexWhere((d) => d.id == id);
+lib/features/admin/data/repositories/master_data_repository.dart:110:      _mockDoctors[index] = _mockDoctors[index].copyWith(approvalStatus: status);
+lib/features/admin/data/repositories/master_data_repository.dart:116:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/master_data_repository.dart:117:    return _mockChemists.toList();
+lib/features/admin/data/repositories/master_data_repository.dart:122:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/master_data_repository.dart:123:    final index = _mockChemists.indexWhere((c) => c.id == id);
+lib/features/admin/data/repositories/master_data_repository.dart:125:      _mockChemists[index] = _mockChemists[index].copyWith(approvalStatus: status);
+lib/features/admin/data/repositories/master_data_repository.dart:131:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/master_data_repository.dart:132:    return _mockProducts.toList();
+lib/features/admin/data/repositories/master_data_repository.dart:137:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/master_data_repository.dart:138:    _mockProducts.add(product);
+lib/features/admin/data/repositories/admin_repository.dart:21:  final List<AdminUserModel> _mockUsers = [
+lib/features/admin/data/repositories/admin_repository.dart:59:  final List<TerritoryModel> _mockTerritories = [
+lib/features/admin/data/repositories/admin_repository.dart:67:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/admin_repository.dart:68:    return _mockUsers.toList();
+lib/features/admin/data/repositories/admin_repository.dart:73:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/admin_repository.dart:74:    return _mockUsers.firstWhere((u) => u.id == id);
+lib/features/admin/data/repositories/admin_repository.dart:79:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/admin_repository.dart:80:    _mockUsers.add(user);
+lib/features/admin/data/repositories/admin_repository.dart:85:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/admin_repository.dart:86:    final index = _mockUsers.indexWhere((u) => u.id == user.id);
+lib/features/admin/data/repositories/admin_repository.dart:88:      _mockUsers[index] = user;
+lib/features/admin/data/repositories/admin_repository.dart:94:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/admin_repository.dart:95:    final index = _mockUsers.indexWhere((u) => u.id == id);
+lib/features/admin/data/repositories/admin_repository.dart:97:      _mockUsers[index] = _mockUsers[index].copyWith(status: status);
+lib/features/admin/data/repositories/admin_repository.dart:103:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/admin_repository.dart:108:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/admin_repository.dart:113:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/admin/data/repositories/admin_repository.dart:114:    final index = _mockUsers.indexWhere((u) => u.id == id);
+lib/features/admin/data/repositories/admin_repository.dart:116:      _mockUsers[index] = _mockUsers[index].copyWith(deviceId: ''); // empty device id
+lib/features/admin/data/repositories/admin_repository.dart:122:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/admin_repository.dart:123:    return _mockTerritories.toList();
+lib/features/admin/data/repositories/admin_repository.dart:128:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/admin_repository.dart:129:    _mockTerritories.add(territory);
+lib/features/admin/data/repositories/admin_repository.dart:134:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/repositories/admin_repository.dart:135:    final index = _mockTerritories.indexWhere((t) => t.id == territory.id);
+lib/features/admin/data/repositories/admin_repository.dart:137:      _mockTerritories[index] = territory;
+lib/features/admin/data/repositories/admin_repository.dart:143:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/admin/data/models/master_models.dart:145:  final bool sampleAvailable;
+lib/features/admin/data/models/master_models.dart:146:  final String samplePack;
+lib/features/admin/data/models/master_models.dart:163:    required this.sampleAvailable,
+lib/features/admin/data/models/master_models.dart:164:    required this.samplePack,
+lib/features/admin/data/models/pricing_sales_models.dart:9:  final double sampleCost;
+lib/features/admin/data/models/pricing_sales_models.dart:22:    required this.sampleCost,
+lib/features/admin/data/models/analytics_models.dart:13:  final int samplesDistributed;
+lib/features/admin/data/models/analytics_models.dart:31:    required this.samplesDistributed,
+lib/features/admin/data/api/import_export_service.dart:12:    await Future.delayed(const Duration(seconds: 2));
+lib/features/admin/data/api/import_export_service.dart:25:    await Future.delayed(const Duration(seconds: 2));
+lib/features/admin/data/api/import_export_service.dart:37:    await Future.delayed(const Duration(seconds: 2));
+lib/features/admin/data/api/import_export_service.dart:43:    await Future.delayed(const Duration(seconds: 2));
+lib/features/mtp/data/api/mtp_api_service.dart:16:    // Replaced mock delay with Dio
+lib/features/mtp/data/api/mtp_approval_api_service.dart:14:    // Replaced mock delay with Dio
+lib/features/mtp/data/api/mtp_approval_api_service.dart:21:    // Replaced mock delay with Dio
+lib/features/mtp/data/repositories/mtp_approval_repository_impl.dart:79:    await Future.delayed(const Duration(milliseconds: 200));
+lib/features/dcr/domain/validators/dcr_report_validator.dart:5:    if (report.samples.any((s) => s.quantity < 0 || s.quantity > s.maxStock)) {
+lib/features/dcr/domain/validators/dcr_report_validator.dart:6:      return 'Invalid sample quantities detected.';
+lib/features/dcr/data/models/product_model.dart:33:        price: json['price'] != null ? (json['price'] as num).toDouble() : null,
+lib/features/dcr/data/models/dcr_report_model.dart:1:class SampleItemModel {
+lib/features/dcr/data/models/dcr_report_model.dart:7:  SampleItemModel({
+lib/features/dcr/data/models/dcr_report_model.dart:21:  factory SampleItemModel.fromJson(Map<String, dynamic> json) => SampleItemModel(
+lib/features/dcr/data/models/dcr_report_model.dart:91:        unitPrice: json['unitPrice'] != null ? (json['unitPrice'] as num).toDouble() : null,
+lib/features/dcr/data/models/dcr_report_model.dart:92:        totalValue: json['totalValue'] != null ? (json['totalValue'] as num).toDouble() : null,
+lib/features/dcr/data/models/dcr_report_model.dart:132:  final List<SampleItemModel> samples;
+lib/features/dcr/data/models/dcr_report_model.dart:141:    this.samples = const [],
+lib/features/dcr/data/models/dcr_report_model.dart:151:        'samples': samples.map((e) => e.toJson()).toList(),
+lib/features/dcr/data/models/dcr_report_model.dart:161:        samples: (json['samples'] as List<dynamic>?)?.map((e) => SampleItemModel.fromJson(e as Map<String, dynamic>)).toList() ?? [],
+lib/features/dcr/data/repositories/dcr_report_repository_impl.dart:19:  // In-memory mock for Drafts since Drift is stubbed
+lib/features/dcr/data/repositories/dcr_report_repository_impl.dart:59:      samples: report.samples,
+lib/features/dcr/data/repositories/dcr_submission_repository_impl.dart:46:      customerName: 'Dr. Customer Placeholder',
+lib/features/dcr/data/repositories/dcr_submission_repository_impl.dart:67:      samples: [
+lib/features/dcr/data/repositories/dcr_submission_repository_impl.dart:68:        SampleItemModel(productId: 'P1', productName: 'Sample A', quantity: 5, maxStock: 10),
+lib/features/dcr/data/api/dcr_api_service.dart:14:    // Replaced mock delay with Dio
+lib/features/dcr/data/api/dcr_api_service.dart:20:    // Replaced mock delay with Dio
+lib/features/dcr/data/api/dcr_report_api_service.dart:14:    // Replaced mock delay with Dio
+lib/features/dcr/data/api/dcr_report_api_service.dart:25:    // Replaced mock delay with Dio
+lib/features/dcr/data/api/dcr_submission_api_service.dart:13:    // Replaced mock delay with Dio
+lib/features/dcr/data/api/dcr_checkout_api_service.dart:13:    // Replaced mock delay with Dio
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:10:  final List<SampleItemModel> samples;
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:11:  final ValueChanged<List<SampleItemModel>> onChanged;
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:16:    required this.samples,
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:25:  late Map<String, SampleItemModel> _samplesMap;
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:30:    _samplesMap = {for (var s in widget.samples) s.productId: s};
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:35:      final current = _samplesMap[product.id]?.quantity ?? 0;
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:42:        _samplesMap.remove(product.id);
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:44:        _samplesMap[product.id] = SampleItemModel(
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:51:      widget.onChanged(_samplesMap.values.toList());
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:57:    int totalSamples = _samplesMap.values.fold(0, (sum, item) => sum + item.quantity);
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:67:              Text('Total Samples Distributed:', style: AppTypography.titleMedium.copyWith(fontWeight: FontWeight.bold)),
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:68:              Text('$totalSamples', style: AppTypography.titleMedium.copyWith(fontWeight: FontWeight.bold, color: AppColors.primary)),
+lib/features/dcr/presentation/widgets/product_sampling_widget.dart:78:              final currentQuantity = _samplesMap[product.id]?.quantity ?? 0;
+lib/features/dcr/presentation/providers/dcr_report_provider.dart:49:  void updateSamples(List<SampleItemModel> samples) {
+lib/features/dcr/presentation/providers/dcr_report_provider.dart:52:      state = currentState.copyWith(report: currentState.report.copyWith(samples: samples));
+lib/features/dcr/presentation/providers/dcr_report_provider.dart:92:      await Future.delayed(const Duration(milliseconds: 100));
+lib/features/dcr/presentation/providers/dcr_report_provider.dart:103:      await Future.delayed(const Duration(milliseconds: 100));
+lib/features/dcr/presentation/providers/dcr_report_provider.dart:121:    List<SampleItemModel>? samples,
+lib/features/dcr/presentation/providers/dcr_report_provider.dart:130:      samples: samples ?? this.samples,
+lib/features/dcr/presentation/providers/dcr_checkin_provider.dart:66:      int batteryLevel = 85; // Mock
+lib/features/dcr/presentation/providers/dcr_checkin_provider.dart:80:        deviceId: 'DEVICE_ID_MOCK',
+lib/features/dcr/presentation/providers/dcr_submission_provider.dart:78:        deviceId: 'DEVICE_ID_MOCK',
+lib/features/dcr/presentation/screens/dcr_checkout_screen.dart:183:      final totalSamples = report?.samples.fold(0, (sum, i) => sum! + i.quantity) ?? 0;
+lib/features/dcr/presentation/screens/dcr_checkout_screen.dart:221:                    _buildInfoRow('Samples Given', '$totalSamples items'),
+lib/features/dcr/presentation/screens/dcr_summary_screen.dart:117:      final totalSamples = report.samples.fold(0, (sum, i) => sum + i.quantity);
+lib/features/dcr/presentation/screens/dcr_summary_screen.dart:143:                _buildInfoRow('Samples Distributed', '$totalSamples items'),
+lib/features/dcr/presentation/screens/dcr_report_screen.dart:64:              'customerName': 'Dr. Customer (Placeholder)', // Note: Should pass actual customer info
+lib/features/dcr/presentation/screens/dcr_report_screen.dart:116:            samples: state.report.samples,
+lib/features/dcr/presentation/screens/dcr_report_screen.dart:117:            onChanged: (samples) {
+lib/features/dcr/presentation/screens/dcr_report_screen.dart:118:              ref.read(dcrReportNotifierProvider({'checkInId': widget.checkInId, 'customerId': widget.customerId}).notifier).updateSamples(samples);
+lib/features/expense/presentation/screens/payment_status_screen.dart:15:    // Mocking the audit history for demonstration
+lib/features/expense/presentation/screens/payment_status_screen.dart:16:    final List<ExpenseAuditModel> mockAudits = [
+lib/features/expense/presentation/screens/payment_status_screen.dart:57:            ApprovalTimelineWidget(audits: mockAudits),
+lib/features/expense/presentation/providers/bill_upload_provider.dart:72:    Future.delayed(const Duration(milliseconds: 100), () {
+lib/features/expense/data/models/expense_approval_model.dart:45:        claimAmount: (json['claimAmount'] as num).toDouble(),
+lib/features/expense/data/models/expense_approval_model.dart:46:        approvedAmount: json['approvedAmount'] != null ? (json['approvedAmount'] as num).toDouble() : null,
+lib/features/expense/data/models/expense_approval_model.dart:47:        rejectedAmount: json['rejectedAmount'] != null ? (json['rejectedAmount'] as num).toDouble() : null,
+lib/features/expense/data/models/misc_expense_model.dart:28:        amount: (json['amount'] as num).toDouble(),
+lib/features/expense/data/api/expense_approval_api_service.dart:14:    // Replaced mock delay with Dio
+lib/features/expense/data/api/expense_approval_api_service.dart:20:    // Replaced mock delay with Dio
+lib/features/expense/data/api/expense_api_service.dart:13:    // Replaced mock delay with Dio
+lib/features/expense/data/api/expense_bill_api_service.dart:18:    // Replaced mock delay with Dio
+lib/features/tracking/data/models/gps_log_request.dart:32:      latitude: (json['latitude'] as num).toDouble(),
+lib/features/tracking/data/models/gps_log_request.dart:33:      longitude: (json['longitude'] as num).toDouble(),
+lib/features/tracking/data/models/gps_log_request.dart:34:      accuracy: (json['accuracy'] as num).toDouble(),
+lib/features/tracking/data/api/tracking_api_service.dart:16:    // Replaced mock delay with Dio
+lib/features/mtp_review/data/api/mtp_review_api_service.dart:12:    // Replaced mock delay with Dio
+lib/features/mtp_review/data/api/mtp_review_api_service.dart:27:        dailyPlans: _generateMockPlans(),
+lib/features/mtp_review/data/api/mtp_review_api_service.dart:54:        dailyPlans: _generateMockPlans(),
+lib/features/mtp_review/data/api/mtp_review_api_service.dart:81:        dailyPlans: _generateMockPlans(),
+lib/features/mtp_review/data/api/mtp_review_api_service.dart:102:    // Replaced mock delay with Dio
+lib/features/mtp_review/data/api/mtp_review_api_service.dart:107:  List<MtpDailyPlanModel> _generateMockPlans() {
+lib/features/team_tracking/data/repositories/team_tracking_repository_impl.dart:38:    await Future.delayed(const Duration(milliseconds: 200));
+lib/features/team_tracking/data/api/team_tracking_api_service.dart:13:    // Replaced mock delay with Dio
+lib/features/team_tracking/data/api/team_tracking_api_service.dart:72:    // Replaced mock delay with Dio
+lib/features/super_admin/data/repositories/super_admin_repository.dart:16:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/super_admin/data/repositories/super_admin_repository.dart:32:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/super_admin/data/repositories/super_admin_repository.dart:42:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/super_admin/data/repositories/super_admin_repository.dart:53:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/super_admin/data/repositories/super_admin_repository.dart:66:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/super_admin/data/repositories/super_admin_repository.dart:79:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/attendance/presentation/widgets/end_of_day_summary_widget.dart:46:            _buildRow('Total Samples Given', summary.totalSamplesGiven.toString()),
+lib/features/attendance/data/models/end_of_day_summary_model.dart:10:  final int totalSamplesGiven;
+lib/features/attendance/data/models/end_of_day_summary_model.dart:26:    required this.totalSamplesGiven,
+lib/features/attendance/data/repositories/punch_out_repository_impl.dart:41:      totalSamplesGiven: 15,
+lib/features/attendance/data/api/attendance_api_service.dart:18:    // Replaced mock delay with Dio
+lib/features/attendance/data/api/punch_out_api_service.dart:18:    // Replaced mock delay with Dio
+lib/features/expense_approval/data/api/expense_approval_api_service.dart:6:    // Replaced mock delay with Dio
+lib/features/expense_approval/data/api/expense_approval_api_service.dart:26:          ExpenseBillModel(id: 'B001', url: 'https://via.placeholder.com/600x800.png?text=Taxi+Receipt', type: 'image', description: 'Taxi Receipt'),
+lib/features/expense_approval/data/api/expense_approval_api_service.dart:27:          ExpenseBillModel(id: 'B002', url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', type: 'pdf', description: 'Hotel Bill'),
+lib/features/expense_approval/data/api/expense_approval_api_service.dart:59:          ExpenseBillModel(id: 'B003', url: 'https://via.placeholder.com/600x800.png?text=Bus+Ticket', type: 'image', description: 'Bus Ticket'),
+lib/features/expense_approval/data/api/expense_approval_api_service.dart:79:    // Replaced mock delay with Dio
+lib/features/splash/presentation/providers/splash_provider.dart:49:      await Future.delayed(const Duration(milliseconds: 500));
+lib/features/splash/presentation/splash_screen.dart:38:              // Animated Logo Placeholder
+lib/features/dashboard/presentation/widgets/today_summary_section.dart:59:                  'Samples\nGiven',
+lib/features/dashboard/presentation/widgets/today_summary_section.dart:60:                  summary.samplesGiven.toString(),
+lib/features/dashboard/presentation/screens/dashboard_screen.dart:46:    // Return empty placeholder for non-Home tabs for now
+lib/features/dashboard/data/repositories/dashboard_repository_impl.dart:16:    await Future.delayed(const Duration(seconds: 1));
+lib/features/dashboard/data/repositories/dashboard_repository_impl.dart:18:    // Mock API Response
+lib/features/dashboard/data/repositories/dashboard_repository_impl.dart:30:      samplesGiven: 12,
+lib/features/dashboard/data/repositories/dashboard_repository_impl.dart:39:    await Future.delayed(const Duration(milliseconds: 800));
+lib/features/dashboard/data/repositories/dashboard_repository_impl.dart:61:    await Future.delayed(const Duration(seconds: 1));
+lib/features/dashboard/data/repositories/dashboard_repository_impl.dart:66:    await Future.delayed(const Duration(seconds: 1));
+lib/features/dashboard/data/models/dashboard_summary_model.dart:12:  final int samplesGiven;
+lib/features/dashboard/data/models/dashboard_summary_model.dart:27:    required this.samplesGiven,
+lib/features/dashboard/data/models/dashboard_summary_model.dart:44:      samplesGiven: json['samplesGiven'] as int? ?? 0,
+lib/features/dashboard/data/models/dashboard_summary_model.dart:45:      ordersBooked: (json['ordersBooked'] as num? ?? 0).toDouble(),
+lib/features/dashboard/data/models/dashboard_summary_model.dart:46:      expensesToday: (json['expensesToday'] as num? ?? 0).toDouble(),
+lib/features/secondary_sales/presentation/screens/closing_stock_screen.dart:20:  // Mock list for UI presentation
+lib/features/secondary_sales/data/api/secondary_sales_api_service.dart:13:    // Replaced mock delay with Dio
+lib/features/manager_dashboard/presentation/widgets/manager_performance_summary.dart:42:              _buildRow('Samples Distributed', summary.samplesDistributed.toString()),
+lib/features/manager_dashboard/presentation/widgets/manager_info_header.dart:10:  // If no attendance for AM/RM, we can just omit it or mock it
+lib/features/manager_dashboard/data/api/manager_dashboard_api_service.dart:13:    // Replaced mock delay with Dio
+lib/features/manager_dashboard/data/api/manager_dashboard_api_service.dart:26:      samplesDistributed: 45,
+lib/features/manager_dashboard/data/api/manager_dashboard_api_service.dart:33:    // Replaced mock delay with Dio
+lib/features/manager_dashboard/data/models/manager_dashboard_summary_model.dart:13:  final int samplesDistributed;
+lib/features/manager_dashboard/data/models/manager_dashboard_summary_model.dart:28:    required this.samplesDistributed,
+lib/features/secondary_sales_review/data/api/secondary_sales_review_api_service.dart:6:    // Replaced mock delay with Dio
+lib/features/secondary_sales_review/data/api/secondary_sales_review_api_service.dart:58:    // Replaced mock delay with Dio
+lib/features/secondary_sales_review/data/api/secondary_sales_review_api_service.dart:72:    // Replaced mock delay with Dio
+lib/features/secondary_sales_review/data/api/secondary_sales_review_api_service.dart:82:    // Replaced mock delay with Dio
+lib/features/dcr_review/presentation/widgets/dcr_gps_verification.dart:61:          // Placeholder for actual Map
+lib/features/dcr_review/presentation/screens/dcr_review_details_screen.dart:164:          _buildDetailSection('Samples Given', _submission.samplesGiven),
+lib/features/dcr_review/data/api/dcr_review_api_service.dart:7:    // Replaced mock delay with Dio
+lib/features/dcr_review/data/api/dcr_review_api_service.dart:34:        samplesGiven: 'Sample A - 2 units',
+lib/features/dcr_review/data/api/dcr_review_api_service.dart:73:        samplesGiven: 'None',
+lib/features/dcr_review/data/api/dcr_review_api_service.dart:91:    // Replaced mock delay with Dio
+lib/features/dcr_review/data/models/dcr_review_models.dart:27:  final String? samplesGiven;
+lib/features/dcr_review/data/models/dcr_review_models.dart:68:    this.samplesGiven,
+lib/features/attendance_override/domain/services/attendance_resume_service.dart:10:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/attendance_override/data/api/override_api_service.dart:6:    // Replaced mock delay with Dio
+lib/features/attendance_override/data/api/override_api_service.dart:17:    // Replaced mock delay with Dio
+lib/features/attendance_override/data/api/override_api_service.dart:47:    // Replaced mock delay with Dio
+lib/features/attendance_override/data/api/override_api_service.dart:52:    // Replaced mock delay with Dio
+lib/features/attendance_override/presentation/screens/override_request_screen.dart:38:      employeeId: 'EMP-001', // Mock for now
+lib/features/attendance_override/presentation/providers/override_provider.dart:80:    'MGR-100', // Mock manager ID
+lib/features/reports_analytics/data/api/reports_api_service.dart:6:    // Replaced mock delay with Dio
+lib/features/reports_analytics/data/api/reports_api_service.dart:20:      samples: 200,
+lib/features/reports_analytics/data/api/reports_api_service.dart:27:    // Replaced mock delay with Dio
+lib/features/reports_analytics/data/api/reports_api_service.dart:56:    // Replaced mock delay with Dio
+lib/features/reports_analytics/data/api/reports_api_service.dart:58:    // Mock trend data
+lib/features/reports_analytics/data/models/reports_models.dart:13:  final int samples;
+lib/features/reports_analytics/data/models/reports_models.dart:29:    required this.samples,
+lib/features/reports_analytics/domain/services/export_service.dart:5:    await Future.delayed(const Duration(seconds: 2));
+lib/features/reports_analytics/domain/services/export_service.dart:11:    await Future.delayed(const Duration(seconds: 2));
+lib/features/reports_analytics/domain/services/export_service.dart:17:    await Future.delayed(const Duration(seconds: 1));
+lib/features/reports_analytics/domain/services/print_service.dart:5:    await Future.delayed(const Duration(seconds: 1));
+lib/features/work_plan/data/api/work_plan_api_service.dart:15:    // Replaced mock delay with Dio
+lib/features/work_plan/data/api/work_plan_api_service.dart:22:    // Replaced mock delay with Dio
+lib/features/work_plan/data/api/work_plan_api_service.dart:28:    // Replaced mock delay with Dio
+lib/features/work_plan/data/api/work_plan_api_service.dart:35:    // Replaced mock delay with Dio
+lib/features/work_plan/data/repositories/work_plan_repository_impl.dart:32:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/work_plan/data/repositories/work_plan_repository_impl.dart:51:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/work_plan/data/repositories/work_plan_repository_impl.dart:95:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/work_plan/presentation/widgets/joint_work_dialog.dart:19:  // Mock list of managers
+lib/features/work_plan/presentation/providers/work_plan_provider.dart:72:      await Future.delayed(const Duration(milliseconds: 100));
+lib/features/work_plan/presentation/providers/work_plan_provider.dart:76:      await Future.delayed(const Duration(milliseconds: 100));
+lib/features/work_plan/presentation/providers/work_plan_provider.dart:91:      await Future.delayed(const Duration(milliseconds: 100));
+lib/features/work_plan/presentation/providers/work_plan_provider.dart:95:      await Future.delayed(const Duration(milliseconds: 100));
+lib/features/communication/presentation/screens/chat_detail_screen.dart:37:    Future.delayed(const Duration(milliseconds: 100), () {
+lib/features/communication/data/api/voice_note_service.dart:20:    await Future.delayed(const Duration(seconds: 1));
+lib/features/communication/data/api/attachment_service.dart:7:    await Future.delayed(const Duration(seconds: 1));
+lib/features/communication/data/api/attachment_service.dart:13:    await Future.delayed(const Duration(seconds: 1));
+lib/features/communication/data/repositories/chat_repository.dart:11:  final List<ChatRoomModel> _mockRooms = [
+lib/features/communication/data/repositories/chat_repository.dart:30:  final Map<String, List<ChatMessageModel>> _mockMessages = {
+lib/features/communication/data/repositories/chat_repository.dart:37:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/communication/data/repositories/chat_repository.dart:38:    return _mockRooms;
+lib/features/communication/data/repositories/chat_repository.dart:43:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/communication/data/repositories/chat_repository.dart:44:    return _mockMessages[roomId] ?? [];
+lib/features/communication/data/repositories/chat_repository.dart:49:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/communication/data/repositories/chat_repository.dart:50:    if (!_mockMessages.containsKey(message.roomId)) {
+lib/features/communication/data/repositories/chat_repository.dart:51:      _mockMessages[message.roomId] = [];
+lib/features/communication/data/repositories/chat_repository.dart:53:    _mockMessages[message.roomId]!.add(message);
+lib/features/communication/data/repositories/notification_repository.dart:15:  final List<NotificationModel> _mockData = [
+lib/features/communication/data/repositories/notification_repository.dart:37:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/communication/data/repositories/notification_repository.dart:38:    _mockData.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+lib/features/communication/data/repositories/notification_repository.dart:39:    return _mockData.toList();
+lib/features/communication/data/repositories/notification_repository.dart:44:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/communication/data/repositories/notification_repository.dart:45:    final index = _mockData.indexWhere((n) => n.id == id);
+lib/features/communication/data/repositories/notification_repository.dart:47:      _mockData[index] = _mockData[index].copyWith(isRead: true);
+lib/features/communication/data/repositories/notification_repository.dart:53:    await Future.delayed(const Duration(milliseconds: 500));
+lib/features/communication/data/repositories/notification_repository.dart:54:    for (int i = 0; i < _mockData.length; i++) {
+lib/features/communication/data/repositories/notification_repository.dart:55:      _mockData[i] = _mockData[i].copyWith(isRead: true);
+lib/features/communication/data/repositories/notification_repository.dart:61:    await Future.delayed(const Duration(milliseconds: 300));
+lib/features/communication/data/repositories/notification_repository.dart:62:    _mockData.removeWhere((n) => n.id == id);
+lib/features/communication/data/repositories/notification_repository.dart:67:    return _mockData.where((n) => !n.isRead).length;
+lib/core/network/retry_interceptor.dart:30:          await Future.delayed(delay);
+lib/core/network/token_manager.dart:32:      if (token == 'mock_jwt_access_token_123') return true; // Keep mock support for testing
+lib/core/services/battery_service.dart:7:    // we provide a mock implementation that returns a simulated battery percentage.
+lib/core/services/startup_service.dart:13:    await Future.delayed(const Duration(milliseconds: 600));
+lib/core/services/startup_service.dart:18:    await Future.delayed(const Duration(milliseconds: 600));
+lib/core/services/startup_service.dart:23:    await Future.delayed(const Duration(milliseconds: 400));
+lib/core/services/startup_service.dart:28:    await Future.delayed(const Duration(milliseconds: 300));
+lib/core/services/startup_service.dart:35:    await Future.delayed(const Duration(milliseconds: 500));
+lib/core/services/startup_service.dart:41:    await Future.delayed(const Duration(milliseconds: 400));
+lib/core/constants/app_strings.dart:17:  // Dashboard/Placeholders
+lib/core/sync/sync_engine.dart:125:    // Here we use a generic placeholder:
+lib/core/sync/sync_engine.dart:132:    await Future.delayed(const Duration(milliseconds: 200)); 
+lib/core/sync/sync_engine.dart:153:    Dio(), // Placeholder if dioProvider is not in scope yet, or inject ref.watch(dioProvider)
+lib/core/sync/file_upload_manager.dart:42:        await Future.delayed(const Duration(milliseconds: 500));
+lib/core/sync/file_upload_manager.dart:57:        Future.delayed(const Duration(seconds: 5), _processQueue);
+lib/core/sync/file_upload_manager.dart:66:    Dio(), // Placeholder for ref.watch(dioProvider)
+lib/core/providers/providers.dart:12:  await Future.delayed(const Duration(milliseconds: 500));
