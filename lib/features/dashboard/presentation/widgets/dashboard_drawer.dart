@@ -50,7 +50,7 @@ class DashboardDrawer extends ConsumerWidget {
                 _buildDrawerItem(Icons.person, 'Profile'),
                                 _buildDrawerItem(Icons.admin_panel_settings, 'Admin Panel', onTap: () {
                   context.pop();
-                  context.push('/admin');
+                  context.push('/admin-dashboard');
                 }),
                 _buildDrawerItem(Icons.settings, 'Settings'),
                 _buildDrawerItem(
