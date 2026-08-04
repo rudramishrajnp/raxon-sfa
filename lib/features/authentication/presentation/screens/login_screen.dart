@@ -70,9 +70,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       } else if (next is AuthStateAuthenticated) {
         AppFeedback.showSnackBar(context, 'Login Successful');
         if (next.user.role == 'Super Admin') {
-          context.go('/super_admin');
+          context.go('/super-admin-dashboard');
         } else if (next.user.role == 'Admin') {
-          context.go('/admin');
+          context.go('/admin-dashboard');
         } else if (next.user.role == 'AM' || next.user.role == 'RM') {
           context.go('/manager-dashboard');
         } else {
@@ -201,8 +201,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton(onPressed: () => context.go('/admin'), child: const Text('Admin')),
-                      ElevatedButton(onPressed: () => context.go('/super_admin'), child: const Text('Super Admin')),
+                      ElevatedButton(onPressed: () => context.go('/admin-dashboard'), child: const Text('Admin')),
+                      ElevatedButton(onPressed: () => context.go('/super-admin-dashboard'), child: const Text('Super Admin')),
                     ],
                   ),
                   AppSizes.gap16,
