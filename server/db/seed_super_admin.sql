@@ -1,1 +1,0 @@
-INSERT INTO users (email, password_hash, name, role, is_active) VALUES ('charak.pradeep.mishra@gmail.con', '$2b$10$NAykgvAJuAs9JEGDCWYY/Oz7u64PFkvi3r1FnrYpLVgHx9pBulBBq', 'Super Admin', 'SUPER_ADMIN', true) ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash, role = EXCLUDED.role, is_active = EXCLUDED.is_active;
