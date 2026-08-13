@@ -24,19 +24,35 @@ export interface DcrCall {
   productsSampled: string[];
   feedback: string;
   gpsVerified: boolean;
+  location?: { lat: number; lng: number; address?: string };
   jointWorkWith?: string;
 }
 
 export interface ExpenseRecord {
   id: string;
   date: string;
+  mrId?: string;
+  mrName?: string;
+  workType: 'HQ' | 'EX-HQ' | 'OUTSTATION';
   taAmount: number;
   daAmount: number;
   miscAmount: number;
   total: number;
-  status: 'Approved' | 'Pending Manager' | 'Pending Finance' | 'Rejected';
+  status: 'Draft' | 'Pending Manager' | 'Pending Finance' | 'Approved' | 'Rejected';
   billUploaded: boolean;
   billUrl?: string;
+  managerRemarks?: string;
+}
+
+export interface PrimarySaleRecord {
+  id: string;
+  stockistName: string;
+  headquarters: string;
+  invoiceNo: string;
+  date: string;
+  totalValue: number;
+  status: 'Dispatched' | 'Delivered' | 'Pending';
+  products: { name: string; qty: number; rate: number }[];
 }
 
 export interface SecondarySaleRecord {
@@ -49,6 +65,19 @@ export interface SecondarySaleRecord {
   closingStock: number;
   saleValue: number;
   month: string;
+}
+
+export interface TargetVsAchievement {
+  mrId: string;
+  mrName: string;
+  hq: string;
+  month: string;
+  targetPob: number;
+  achievedPob: number;
+  targetPrimary: number;
+  achievedPrimary: number;
+  targetCalls: number;
+  achievedCalls: number;
 }
 
 export interface TeamMemberStatus {
