@@ -74,7 +74,8 @@ export default function Mtp() {
 
   const isComplete = daysInMonth.every(day => {
     const dateStr = format(day, 'yyyy-MM-dd');
-    return !!plans[dateStr];
+    const isWeekend = format(day, 'EEEE') === 'Sunday';
+    return !!(plans[dateStr] || (isWeekend ? 'Holiday' : ''));
   });
 
   const handleSubmit = () => {
@@ -89,7 +90,15 @@ export default function Mtp() {
     setShowConfirm(false);
     setLoading(true);
     try {
-      await submitMTP(monthYear, plans);
+      const finalPlans = { ...plans };
+      daysInMonth.forEach(day => {
+        const dateStr = format(day, 'yyyy-MM-dd');
+        if (format(day, 'EEEE') === 'Sunday' && !finalPlans[dateStr]) {
+          finalPlans[dateStr] = 'Holiday';
+        }
+      });
+      await submitMTP(monthYear, finalPlans);
+      setPlans(finalPlans);
       setStatus('submitted');
       setMessage("MTP Submitted successfully to Manager for approval.");
     } catch (error) {
@@ -118,15 +127,13 @@ export default function Mtp() {
         <div>
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-gray-900">Monthly Tour Plan (MTP)</h1>
-            {status !== 'draft' && (
-              <button 
-                onClick={handleReset} 
-                className="text-xs font-semibold bg-red-50 text-red-600 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-colors"
-                title="Reset this MTP to draft with Sundays auto-selected as Holiday"
-              >
-                Reset (Demo)
-              </button>
-            )}
+            <button 
+              onClick={handleReset} 
+              className="text-xs font-medium bg-indigo-50 text-indigo-700 hover:bg-indigo-100 px-3 py-1 rounded-md border border-indigo-200 transition-colors"
+              title="Reset MTP to Draft and Auto-fill all Sundays as Holiday"
+            >
+              Reset / Auto-fill Sundays
+            </button>
           </div>
           <p className="text-gray-500">Plan your daily working areas for the entire month</p>
         </div>
@@ -172,7 +179,7 @@ export default function Mtp() {
               const dateStr = format(day, 'yyyy-MM-dd');
               const dayName = format(day, 'EEEE');
               const isWeekend = dayName === 'Sunday';
-              const selectedArea = plans[dateStr];
+              const selectedArea = plans[dateStr] !== undefined ? plans[dateStr] : (isWeekend ? 'Holiday' : '');
 
               return (
                 <div key={dateStr} className={`flex flex-col sm:flex-row sm:items-center p-3 rounded-lg border ${isWeekend ? 'bg-red-50 border-red-100' : 'bg-white border-gray-200'} ${isToday(day) ? 'ring-2 ring-indigo-500' : ''}`}>
