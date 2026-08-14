@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, Send } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, Send, Clock } from 'lucide-react';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isToday } from 'date-fns';
+import { submitMTP, getMTP } from '../lib/api';
 
 const AREAS = [
   "Akbarpur 1", "Shahzadpur", "District Hospital", "Medical college", 
@@ -12,29 +13,63 @@ export default function Mtp() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [plans, setPlans] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'draft' | 'submitted' | 'approved'>('draft');
-
-  const nextMonth = () => setCurrentDate(addMonths(currentDate, 1));
-  const prevMonth = () => setCurrentDate(subMonths(currentDate, 1));
+  const [loading, setLoading] = useState(false);
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+  const monthYear = format(currentDate, 'yyyy-MM');
+
+  useEffect(() => {
+    const fetchMTP = async () => {
+      setLoading(true);
+      try {
+        const mtpData = await getMTP(monthYear);
+        if (mtpData) {
+          setPlans(mtpData.plans || {});
+          setStatus(mtpData.status || 'draft');
+        } else {
+          setPlans({});
+          setStatus('draft');
+        }
+      } catch (error) {
+        console.error("Error fetching MTP:", error);
+      }
+      setLoading(false);
+    };
+    fetchMTP();
+  }, [monthYear]);
+
+  const nextMonth = () => setCurrentDate(addMonths(currentDate, 1));
+  const prevMonth = () => setCurrentDate(subMonths(currentDate, 1));
 
   const handleAreaSelect = (dateStr: string, area: string) => {
-    if (status === 'approved') return;
+    if (status !== 'draft') return;
     setPlans(prev => ({ ...prev, [dateStr]: area }));
   };
 
-  const isComplete = daysInMonth.every(day => plans[format(day, 'yyyy-MM-dd')]);
+  const isComplete = daysInMonth.every(day => {
+    const dayName = format(day, 'EEEE');
+    if (dayName === 'Sunday') return true; // Optional for Sunday, but for simplicity let's require it or skip
+    return !!plans[format(day, 'yyyy-MM-dd')];
+  });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isComplete) {
-      alert("Please fill the plan for all days in the month before submitting.");
+      alert("Please fill the plan for all working days before submitting.");
       return;
     }
-    setStatus('submitted');
-    // Here we will save to Firebase
-    alert("MTP Submitted to Manager for approval.");
+    
+    setLoading(true);
+    try {
+      await submitMTP(monthYear, plans);
+      setStatus('submitted');
+      alert("MTP Submitted successfully to Manager for approval.");
+    } catch (error) {
+      console.error("Error submitting MTP:", error);
+      alert("Failed to submit MTP.");
+    }
+    setLoading(false);
   };
 
   return (
@@ -45,6 +80,7 @@ export default function Mtp() {
           <p className="text-gray-500">Plan your daily working areas for the entire month</p>
         </div>
         <div className="flex items-center space-x-2">
+          {loading && <span className="text-sm text-gray-500">Loading...</span>}
           {status === 'draft' && (
             <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium flex items-center">
               <AlertCircle size={16} className="mr-1" /> Draft
@@ -122,15 +158,15 @@ export default function Mtp() {
           </p>
           <button
             onClick={handleSubmit}
-            disabled={!isComplete || status !== 'draft'}
+            disabled={!isComplete || status !== 'draft' || loading}
             className={`flex items-center px-6 py-2 rounded-lg font-medium transition-colors ${
-              isComplete && status === 'draft'
+              isComplete && status === 'draft' && !loading
                 ? 'bg-indigo-600 text-white hover:bg-indigo-700'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
             <Send size={18} className="mr-2" />
-            Submit for Approval
+            {loading ? 'Submitting...' : 'Submit for Approval'}
           </button>
         </div>
       </div>
