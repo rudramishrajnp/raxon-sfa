@@ -163,9 +163,11 @@ export default function Mtp() {
                       value={selectedArea || ''}
                       onChange={(e) => handleAreaSelect(dateStr, e.target.value)}
                       onClick={() => { if(status !== 'draft') setMessage("Cannot edit. MTP is already " + status); }}
-                      className={`w-full p-2 rounded-md border ${
+                      className={`w-full p-2 rounded-md border transition-colors ${
+                        selectedArea ? 'text-green-700 font-bold' : 'text-gray-700'
+                      } ${
                         !selectedArea && !isWeekend ? 'border-amber-300 bg-amber-50' : 'border-gray-300'
-                      } ${status !== 'draft' ? 'bg-gray-100 opacity-75' : 'bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500'}`}
+                      } ${status !== 'draft' ? 'bg-gray-50' : 'bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500'}`}
                     >
                       <option value="" disabled>Select Area / Leave / Holiday</option>
                       {AREAS.map(area => (
