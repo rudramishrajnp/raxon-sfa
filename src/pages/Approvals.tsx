@@ -62,11 +62,17 @@ export default function Approvals() {
                   <h3 className="text-lg font-bold text-gray-900">{mtp.userName}</h3>
                   <p className="text-sm text-gray-500 flex items-center mt-1">
                     <Clock className="w-4 h-4 mr-1" />
-                    Submitted: {mtp.submittedAt ? format(mtp.submittedAt.toDate(), 'dd MMM yyyy, HH:mm') : 'Recently'}
+                    Submitted: {
+                      mtp.submittedAt 
+                        ? (typeof mtp.submittedAt?.toDate === 'function' 
+                            ? format(mtp.submittedAt.toDate(), 'dd MMM yyyy, HH:mm') 
+                            : format(new Date(mtp.submittedAt), 'dd MMM yyyy, HH:mm'))
+                        : 'Recently'
+                    }
                   </p>
                   <div className="mt-4">
                     <h4 className="font-semibold text-gray-700">Month: {mtp.monthYear}</h4>
-                    <p className="text-sm text-gray-600 mt-2">Days Planned: {Object.keys(mtp.plans || {}).length}</p>
+                    <p className="text-sm text-gray-600 mt-1">Total Days Planned: <span className="font-semibold text-green-700">{Object.keys(mtp.plans || {}).length} days</span></p>
                   </div>
                 </div>
                 <div className="flex space-x-2">
