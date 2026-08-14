@@ -28,7 +28,7 @@ export function Layout({ children, userRole = 'MR', onLogout }: LayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex flex-col lg:flex-row">
       {/* Mobile sidebar backdrop */}
       {isSidebarOpen && (
         <div 
@@ -39,7 +39,7 @@ export function Layout({ children, userRole = 'MR', onLogout }: LayoutProps) {
 
       {/* Sidebar */}
       <div className={`
-        fixed inset-y-0 left-0 z-30 w-64 bg-indigo-900 text-white transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto
+        fixed inset-y-0 left-0 z-30 w-64 bg-indigo-900 text-white transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="flex items-center justify-between h-16 px-4 bg-indigo-950">
@@ -83,9 +83,9 @@ export function Layout({ children, userRole = 'MR', onLogout }: LayoutProps) {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
-        <div className="flex-shrink-0 flex h-16 bg-white border-b border-gray-200">
+        <div className="sticky top-0 z-20 flex-shrink-0 flex h-16 bg-white border-b border-gray-200">
           <button
             className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden"
             onClick={() => setIsSidebarOpen(true)}
@@ -106,7 +106,7 @@ export function Layout({ children, userRole = 'MR', onLogout }: LayoutProps) {
         </div>
 
         {/* Main scrollable area */}
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6 lg:p-8">
+        <main className="flex-1 bg-gray-50 p-4 md:p-6 lg:p-8">
           {children}
         </main>
       </div>

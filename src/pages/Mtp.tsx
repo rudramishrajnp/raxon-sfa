@@ -127,7 +127,7 @@ export default function Mtp() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
         {/* Calendar Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
           <button onClick={prevMonth} className="p-2 hover:bg-gray-200 rounded-full transition-colors">
