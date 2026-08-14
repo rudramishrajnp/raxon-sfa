@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Map, MapPin, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
+import { Geolocation } from '@capacitor/geolocation';
 import { getMTP, saveDCRCheckIn, getDCR } from '../lib/api';
 
 const ALL_DOCTORS = [
@@ -16,6 +17,8 @@ export default function Dcr() {
   const [plannedArea, setPlannedArea] = useState<string | null>(null);
   const [visitedDoctors, setVisitedDoctors] = useState<number[]>([]);
   const [activeCheckIn, setActiveCheckIn] = useState<number | null>(null);
+  const [visitLocation, setVisitLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const todayStr = format(new Date(), 'yyyy-MM-dd');
@@ -25,7 +28,6 @@ export default function Dcr() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Fetch MTP Area
         const mtpData = await getMTP(monthYear);
         if (mtpData && mtpData.plans && mtpData.plans[todayStr]) {
           setPlannedArea(mtpData.plans[todayStr]);
@@ -33,7 +35,6 @@ export default function Dcr() {
           setPlannedArea(null);
         }
 
-        // Fetch today's DCR
         const dcrData = await getDCR(todayStr);
         if (dcrData && dcrData.checkIns) {
           setVisitedDoctors(dcrData.checkIns.map((c: any) => c.doctorId));
@@ -48,17 +49,30 @@ export default function Dcr() {
 
   const doctors = ALL_DOCTORS.filter(d => d.area === plannedArea);
 
-  const handleCheckIn = (doctorId: number) => {
-    setActiveCheckIn(doctorId);
-    // Real geo-verification could go here
+  const handleCheckIn = async (doctorId: number) => {
+    setIsGettingLocation(true);
+    try {
+      // In a real device, this prompts for GPS permissions. In browser, it uses HTML5 Geolocation.
+      const coordinates = await Geolocation.getCurrentPosition();
+      setVisitLocation({
+        lat: coordinates.coords.latitude,
+        lng: coordinates.coords.longitude
+      });
+      setActiveCheckIn(doctorId);
+    } catch (error) {
+      console.error("Error getting location:", error);
+      alert("Could not get location. Please enable GPS permissions and try again.");
+    }
+    setIsGettingLocation(false);
   };
 
   const handleCheckOut = async (doctorId: number) => {
     try {
       if (!plannedArea) return;
-      await saveDCRCheckIn(todayStr, plannedArea, doctorId);
+      await saveDCRCheckIn(todayStr, plannedArea, doctorId, visitLocation || undefined);
       setVisitedDoctors(prev => [...prev, doctorId]);
       setActiveCheckIn(null);
+      setVisitLocation(null);
     } catch (error) {
       console.error("Failed to save checkin:", error);
       alert("Failed to save visit to database. Please check connection.");
@@ -120,6 +134,7 @@ export default function Dcr() {
                 {doctors.map(doctor => {
                   const isVisited = visitedDoctors.includes(doctor.id);
                   const isCheckingIn = activeCheckIn === doctor.id;
+                  const isCheckingLocationForThis = isGettingLocation && activeCheckIn === null;
 
                   return (
                     <div key={doctor.id} className={`bg-white rounded-lg shadow-sm border ${isVisited ? 'border-green-200 bg-green-50/30' : isCheckingIn ? 'border-amber-300 ring-2 ring-amber-200' : 'border-gray-200'} p-4 transition-all`}>
@@ -145,14 +160,23 @@ export default function Dcr() {
                             <div className="flex space-x-2">
                               <button 
                                 onClick={() => handleCheckIn(doctor.id)}
-                                disabled={activeCheckIn !== null}
+                                disabled={activeCheckIn !== null || isGettingLocation}
                                 className={`px-4 py-2 rounded-lg font-medium shadow-sm transition-colors flex items-center ${
-                                  activeCheckIn !== null ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                                  activeCheckIn !== null || isGettingLocation ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                                 }`}
                               >
-                                <MapPin className="w-4 h-4 mr-2" /> Check-in
+                                {isCheckingLocationForThis ? (
+                                  <>
+                                    <span className="animate-spin mr-2 border-2 border-gray-400 border-t-transparent rounded-full w-4 h-4"></span>
+                                    Locating...
+                                  </>
+                                ) : (
+                                  <>
+                                    <MapPin className="w-4 h-4 mr-2" /> Check-in
+                                  </>
+                                )}
                               </button>
-                              <button className="px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">
+                              <button className="px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50" disabled={isGettingLocation}>
                                 Skip
                               </button>
                             </div>
@@ -163,12 +187,15 @@ export default function Dcr() {
                       {/* Checking In State expansion */}
                       {isCheckingIn && (
                         <div className="mt-4 pt-4 border-t border-amber-100 bg-amber-50 rounded-b-lg p-3 -mx-4 -mb-4">
-                          <p className="text-sm text-amber-800 flex items-center">
-                            <span className="relative flex h-3 w-3 mr-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                          <p className="text-sm text-amber-800 flex flex-col sm:flex-row sm:items-center">
+                            <span className="flex items-center mb-1 sm:mb-0">
+                              <span className="relative flex h-3 w-3 mr-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                              </span>
+                              Location verified: {visitLocation ? `${visitLocation.lat.toFixed(4)}, ${visitLocation.lng.toFixed(4)}` : 'Yes'}
                             </span>
-                            Location verified. Meeting in progress. Click 'Complete Visit' when done to save to database.
+                            <span className="sm:ml-auto font-semibold">Click 'Complete Visit' when done.</span>
                           </p>
                         </div>
                       )}

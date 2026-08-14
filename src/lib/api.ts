@@ -33,14 +33,15 @@ export const getMTP = async (monthYear: string) => {
 };
 
 // DCR Functions
-export const saveDCRCheckIn = async (date: string, area: string, doctorId: number) => {
+export const saveDCRCheckIn = async (date: string, area: string, doctorId: number, location?: {lat: number, lng: number}) => {
   const dcrRef = doc(db, 'dcrs', `${CURRENT_USER.id}_${date}`);
   const dcrSnap = await getDoc(dcrRef);
   
   const checkIn = {
     doctorId,
     timestamp: new Date().toISOString(),
-    status: 'visited'
+    status: 'visited',
+    location: location || null
   };
 
   if (dcrSnap.exists()) {
