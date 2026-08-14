@@ -10,8 +10,11 @@ export default function Dashboard() {
       setIsPunchedIn(true);
       setPunchTime(new Date().toLocaleTimeString());
     } else {
-      setIsPunchedIn(false);
-      setPunchTime(null);
+      if (window.confirm("Are you sure you want to Punch Out for today?")) {
+        setIsPunchedIn(false);
+        setPunchTime(null);
+        alert("Punched out successfully!");
+      }
     }
   };
 

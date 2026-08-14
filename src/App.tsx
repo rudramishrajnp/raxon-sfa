@@ -7,6 +7,7 @@ import ChemistDirectory from './pages/ChemistDirectory';
 import Mtp from './pages/Mtp';
 import Dcr from './pages/Dcr';
 import Approvals from './pages/Approvals';
+import Tracking from './pages/Tracking';
 
 export default function App() {
   // Simulating a state to toggle roles easily
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/doctors" element={<DoctorDirectory />} />
           <Route path="/chemists" element={<ChemistDirectory />} />
           <Route path="/approvals" element={<Approvals />} />
+          <Route path="/tracking" element={<Tracking />} />
           {/* Fallback route */}
           <Route path="*" element={<Dashboard />} />
         </Routes>

@@ -60,6 +60,10 @@ export default function Mtp() {
       return;
     }
     
+    if (!window.confirm("Are you sure you want to submit your MTP for approval? Once submitted, it cannot be edited.")) {
+      return;
+    }
+    
     setLoading(true);
     try {
       await submitMTP(monthYear, plans);

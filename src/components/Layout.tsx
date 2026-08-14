@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Menu, X, Home, Users, Map, Calendar, Settings, LogOut, ChevronRight
+  Menu, X, Home, Users, Map, Calendar, Settings, LogOut, Navigation
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ export function Layout({ children, userRole = 'MR', onLogout }: LayoutProps) {
   ];
 
   if (userRole === 'Manager' || userRole === 'Admin') {
-    navigation.push({ name: 'Team Live Tracking', href: '/tracking', icon: ChevronRight });
+    navigation.push({ name: 'Team Live Tracking', href: '/tracking', icon: Navigation });
     navigation.push({ name: 'Approvals', href: '/approvals', icon: Settings });
   }
 

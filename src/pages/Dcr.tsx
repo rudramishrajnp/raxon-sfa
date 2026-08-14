@@ -218,7 +218,14 @@ export default function Dcr() {
                 </div>
               </div>
               
-              <button className="w-full py-3 bg-gray-900 text-white rounded-lg font-semibold shadow-md hover:bg-gray-800 transition-colors">
+              <button 
+                onClick={() => {
+                  if(window.confirm("Are you sure you want to end your day and submit the final Daily Call Report (DCR)?")) {
+                    alert("DCR Submitted successfully!");
+                  }
+                }}
+                className="w-full py-3 bg-gray-900 text-white rounded-lg font-semibold shadow-md hover:bg-gray-800 transition-colors"
+              >
                 End Day (Final Submit)
               </button>
             </div>
