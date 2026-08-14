@@ -245,3 +245,42 @@ export const approveMTP = async (mtpId: string) => {
   }
 };
 
+export const rejectMTP = async (mtpId: string, remark?: string) => {
+  // Update local
+  try {
+    const pendingKey = 'raxon_pending_mtps';
+    const pending = localStorage.getItem(pendingKey);
+    if (pending) {
+      const list = JSON.parse(pending);
+      const updated = list.map((item: any) => item.id === mtpId ? { ...item, status: 'rejected', remark: remark || 'Rejected by manager', rejectedAt: new Date().toISOString() } : item);
+      localStorage.setItem(pendingKey, JSON.stringify(updated));
+    }
+    const [userId, monthYear] = mtpId.split('_');
+    if (userId && monthYear) {
+      const key = getMtpKey(userId, monthYear);
+      const single = localStorage.getItem(key);
+      if (single) {
+        const parsed = JSON.parse(single);
+        parsed.status = 'draft'; // MR can edit again
+        parsed.remark = remark || 'Rejected by manager';
+        parsed.rejectedAt = new Date().toISOString();
+        localStorage.setItem(key, JSON.stringify(parsed));
+      }
+    }
+  } catch (e) {
+    console.warn("Local reject error:", e);
+  }
+
+  // Update Firestore
+  try {
+    const mtpRef = doc(db, 'mtps', mtpId);
+    await updateDoc(mtpRef, {
+      status: 'draft',
+      remark: remark || 'Rejected by manager',
+      rejectedAt: serverTimestamp()
+    });
+  } catch (e) {
+    console.warn("Firestore rejectMTP error:", e);
+  }
+};
+
