@@ -47,7 +47,10 @@ export default function Mtp() {
   const prevMonth = () => setCurrentDate(subMonths(currentDate, 1));
 
   const handleAreaSelect = (dateStr: string, area: string) => {
-    if (status !== 'draft') return;
+    if (status !== 'draft') {
+      setMessage("Cannot edit MTP. Current status is: " + status);
+      return;
+    }
     setPlans(prev => ({ ...prev, [dateStr]: area }));
   };
 
@@ -96,7 +99,12 @@ export default function Mtp() {
       </Modal>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Monthly Tour Plan (MTP)</h1>
+          <div className="flex items-center space-x-4"><h1 className="text-2xl font-bold text-gray-900">Monthly Tour Plan (MTP)</h1>
+{status !== 'draft' && (
+  <button onClick={() => { setStatus('draft'); setPlans({}); setMessage("Reset to draft for testing!"); }} className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded border border-red-200">
+    Reset (Demo)
+  </button>
+)}</div>
           <p className="text-gray-500">Plan your daily working areas for the entire month</p>
         </div>
         <div className="flex items-center space-x-2">
@@ -154,7 +162,7 @@ export default function Mtp() {
                     <select
                       value={selectedArea || ''}
                       onChange={(e) => handleAreaSelect(dateStr, e.target.value)}
-                      disabled={status !== 'draft'}
+                      onClick={() => { if(status !== 'draft') setMessage("Cannot edit. MTP is already " + status); }}
                       className={`w-full p-2 rounded-md border ${
                         !selectedArea && !isWeekend ? 'border-amber-300 bg-amber-50' : 'border-gray-300'
                       } ${status !== 'draft' ? 'bg-gray-100 opacity-75' : 'bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500'}`}
