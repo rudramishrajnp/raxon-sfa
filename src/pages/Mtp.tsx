@@ -28,13 +28,18 @@ export default function Mtp() {
       setLoading(true);
       try {
         const mtpData = await getMTP(monthYear);
-        if (mtpData) {
-          setPlans(mtpData.plans || {});
-          setStatus(mtpData.status || 'draft');
-        } else {
-          setPlans({});
-          setStatus('draft');
-        }
+        const initialPlans: Record<string, string> = { ...(mtpData?.plans || {}) };
+
+        // Auto-select Holiday for all Sundays if not already set
+        daysInMonth.forEach(day => {
+          const dateStr = format(day, 'yyyy-MM-dd');
+          if (format(day, 'EEEE') === 'Sunday' && !initialPlans[dateStr]) {
+            initialPlans[dateStr] = 'Holiday';
+          }
+        });
+
+        setPlans(initialPlans);
+        setStatus(mtpData?.status || 'draft');
       } catch (error) {
         console.error("Error fetching MTP:", error);
       }
@@ -46,6 +51,19 @@ export default function Mtp() {
   const nextMonth = () => setCurrentDate(addMonths(currentDate, 1));
   const prevMonth = () => setCurrentDate(subMonths(currentDate, 1));
 
+  const handleReset = () => {
+    const resetPlans: Record<string, string> = {};
+    daysInMonth.forEach(day => {
+      const dateStr = format(day, 'yyyy-MM-dd');
+      if (format(day, 'EEEE') === 'Sunday') {
+        resetPlans[dateStr] = 'Holiday';
+      }
+    });
+    setStatus('draft');
+    setPlans(resetPlans);
+    setMessage("Reset to draft! Sundays auto-marked as Holiday.");
+  };
+
   const handleAreaSelect = (dateStr: string, area: string) => {
     if (status !== 'draft') {
       setMessage("Cannot edit MTP. Current status is: " + status);
@@ -55,9 +73,8 @@ export default function Mtp() {
   };
 
   const isComplete = daysInMonth.every(day => {
-    const dayName = format(day, 'EEEE');
-    if (dayName === 'Sunday') return true; // Optional for Sunday, but for simplicity let's require it or skip
-    return !!plans[format(day, 'yyyy-MM-dd')];
+    const dateStr = format(day, 'yyyy-MM-dd');
+    return !!plans[dateStr];
   });
 
   const handleSubmit = () => {
@@ -99,12 +116,18 @@ export default function Mtp() {
       </Modal>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <div className="flex items-center space-x-4"><h1 className="text-2xl font-bold text-gray-900">Monthly Tour Plan (MTP)</h1>
-{status !== 'draft' && (
-  <button onClick={() => { setStatus('draft'); setPlans({}); setMessage("Reset to draft for testing!"); }} className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded border border-red-200">
-    Reset (Demo)
-  </button>
-)}</div>
+          <div className="flex items-center space-x-4">
+            <h1 className="text-2xl font-bold text-gray-900">Monthly Tour Plan (MTP)</h1>
+            {status !== 'draft' && (
+              <button 
+                onClick={handleReset} 
+                className="text-xs font-semibold bg-red-50 text-red-600 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-colors"
+                title="Reset this MTP to draft with Sundays auto-selected as Holiday"
+              >
+                Reset (Demo)
+              </button>
+            )}
+          </div>
           <p className="text-gray-500">Plan your daily working areas for the entire month</p>
         </div>
         <div className="flex items-center space-x-2">
