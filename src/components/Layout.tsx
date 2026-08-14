@@ -14,17 +14,41 @@ export function Layout({ children, userRole = 'MR', onLogout }: LayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
-  const navigation = [
-    { name: 'Dashboard', href: '/', icon: Home },
-    { name: 'MTP (Monthly Plan)', href: '/mtp', icon: Calendar },
-    { name: 'DCR (Daily Call)', href: '/dcr', icon: Map },
-    { name: 'Doctor Directory', href: '/doctors', icon: Users },
-    { name: 'Chemist Directory', href: '/chemists', icon: Users },
-  ];
+  let navigation = [];
 
-  if (userRole === 'Manager' || userRole === 'Admin') {
-    navigation.push({ name: 'Team Live Tracking', href: '/tracking', icon: Navigation });
-    navigation.push({ name: 'Approvals', href: '/approvals', icon: Settings });
+  if (userRole === 'Super Admin') {
+    navigation = [
+      { name: 'SaaS Dashboard', href: '/super-admin', icon: Home },
+      { name: 'Companies (Tenants)', href: '/super-admin/companies', icon: Users },
+      { name: 'System Admins', href: '/super-admin/admins', icon: Users },
+      { name: 'Global RBAC', href: '/super-admin/rbac', icon: Settings },
+      { name: 'Security Center', href: '/super-admin/security', icon: Settings },
+      { name: 'Audit Logs', href: '/super-admin/audit', icon: Navigation },
+      { name: 'System Monitor', href: '/super-admin/monitor', icon: Navigation },
+    ];
+  } else if (userRole === 'System Admin') {
+    navigation = [
+      { name: 'Company Dashboard', href: '/sys-admin', icon: Home },
+      { name: 'Organization Structure', href: '/sys-admin/org', icon: Map },
+      { name: 'User Management', href: '/sys-admin/users', icon: Users },
+      { name: 'Pharma Masters', href: '/sys-admin/masters', icon: Calendar },
+      { name: 'Expense & Leave', href: '/sys-admin/hr', icon: Calendar },
+      { name: 'Reports & Analytics', href: '/sys-admin/reports', icon: Navigation },
+    ];
+  } else {
+    // MR and Manager base routes
+    navigation = [
+      { name: 'Dashboard', href: '/', icon: Home },
+      { name: 'MTP (Monthly Plan)', href: '/mtp', icon: Calendar },
+      { name: 'DCR (Daily Call)', href: '/dcr', icon: Map },
+      { name: 'Doctor Directory', href: '/doctors', icon: Users },
+      { name: 'Chemist Directory', href: '/chemists', icon: Users },
+    ];
+
+    if (userRole === 'Manager' || userRole === 'Admin') {
+      navigation.push({ name: 'Team Live Tracking', href: '/tracking', icon: Navigation });
+      navigation.push({ name: 'Approvals', href: '/approvals', icon: Settings });
+    }
   }
 
   return (
