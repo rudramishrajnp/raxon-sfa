@@ -72,3 +72,23 @@ export const getDCR = async (date: string) => {
   }
   return null;
 };
+
+// Team Approvals Functions (For Manager)
+export const getPendingMTPs = async () => {
+  const q = query(
+    collection(db, 'mtps'), 
+    where('managerId', '==', CURRENT_USER.managerId),
+    where('status', '==', 'submitted')
+  );
+  
+  const snap = await getDocs(q);
+  return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export const approveMTP = async (mtpId: string) => {
+  const mtpRef = doc(db, 'mtps', mtpId);
+  await updateDoc(mtpRef, {
+    status: 'approved',
+    approvedAt: serverTimestamp()
+  });
+};
