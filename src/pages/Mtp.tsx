@@ -101,9 +101,10 @@ export default function Mtp() {
       setPlans(finalPlans);
       setStatus('submitted');
       setMessage("MTP Submitted successfully to Manager for approval.");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting MTP:", error);
-      setMessage("Failed to submit MTP.");
+      const reason = error?.message || error?.code || (typeof error === 'string' ? error : JSON.stringify(error)) || "Unknown error";
+      setMessage(`Failed to submit MTP. Reason: ${reason}`);
     }
     setLoading(false);
   };
