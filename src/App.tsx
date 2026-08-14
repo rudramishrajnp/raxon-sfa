@@ -12,6 +12,7 @@ import SystemAdminDashboard from './pages/SystemAdminDashboard';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
 import OrganizationStructure from './pages/OrganizationStructure';
 import UserManagement from './pages/UserManagement';
+import PharmaMasters from './pages/PharmaMasters';
 
 export default function App() {
   // Simulating a state to toggle roles easily
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/sys-admin" element={<SystemAdminDashboard />} />
           <Route path="/sys-admin/org" element={<OrganizationStructure />} />
           <Route path="/sys-admin/users" element={<UserManagement />} />
+          <Route path="/sys-admin/masters" element={<PharmaMasters />} />
           <Route path="/super-admin" element={<SuperAdminDashboard />} />
           {/* Fallback route */}
           <Route path="*" element={
