@@ -3,6 +3,7 @@ import { Map, MapPin, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { Geolocation } from '@capacitor/geolocation';
 import { getMTP, saveDCRCheckIn, getDCR } from '../lib/api';
+import { Modal } from '../components/Modal';
 
 const ALL_DOCTORS = [
   { id: 1, name: "Dr. A.K. Singh", area: "Jalalpur", subArea: "Jalalpur Market", specialty: "General Physician" },
@@ -20,6 +21,8 @@ export default function Dcr() {
   const [visitLocation, setVisitLocation] = useState<{lat: number, lng: number} | null>(null);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [message, setMessage] = useState('');
 
   const todayStr = format(new Date(), 'yyyy-MM-dd');
   const monthYear = format(new Date(), 'yyyy-MM');
@@ -61,7 +64,7 @@ export default function Dcr() {
       setActiveCheckIn(doctorId);
     } catch (error) {
       console.error("Error getting location:", error);
-      alert("Could not get location. Please enable GPS permissions and try again.");
+      setMessage("Could not get location. Please enable GPS permissions and try again.");
     }
     setIsGettingLocation(false);
   };
@@ -75,7 +78,7 @@ export default function Dcr() {
       setVisitLocation(null);
     } catch (error) {
       console.error("Failed to save checkin:", error);
-      alert("Failed to save visit to database. Please check connection.");
+      setMessage("Failed to save visit to database. Please check connection.");
     }
   };
 
@@ -85,6 +88,19 @@ export default function Dcr() {
 
   return (
     <div className="space-y-6">
+      <Modal isOpen={showConfirm} onClose={() => setShowConfirm(false)} title="Confirm DCR Submission">
+        <p className="text-gray-600 mb-6">Are you sure you want to end your day and submit the final Daily Call Report (DCR)?</p>
+        <div className="flex justify-end space-x-3">
+          <button onClick={() => setShowConfirm(false)} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">Cancel</button>
+          <button onClick={() => { setShowConfirm(false); setMessage("DCR Submitted successfully!"); }} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Submit DCR</button>
+        </div>
+      </Modal>
+      <Modal isOpen={!!message} onClose={() => setMessage('')} title="Notification">
+        <p className="text-gray-800 mb-6">{message}</p>
+        <div className="flex justify-end">
+          <button onClick={() => setMessage('')} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">OK</button>
+        </div>
+      </Modal>
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Daily Call Report (DCR)</h1>
@@ -219,11 +235,7 @@ export default function Dcr() {
               </div>
               
               <button 
-                onClick={() => {
-                  if(window.confirm("Are you sure you want to end your day and submit the final Daily Call Report (DCR)?")) {
-                    alert("DCR Submitted successfully!");
-                  }
-                }}
+                onClick={() => setShowConfirm(true)}
                 className="w-full py-3 bg-gray-900 text-white rounded-lg font-semibold shadow-md hover:bg-gray-800 transition-colors"
               >
                 End Day (Final Submit)

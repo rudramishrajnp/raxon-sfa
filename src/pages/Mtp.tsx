@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, Send, Clock } from 'lucide-react';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isToday } from 'date-fns';
 import { submitMTP, getMTP } from '../lib/api';
+import { Modal } from '../components/Modal';
 
 const AREAS = [
   "Akbarpur 1", "Shahzadpur", "District Hospital", "Medical college", 
@@ -14,6 +15,8 @@ export default function Mtp() {
   const [plans, setPlans] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'draft' | 'submitted' | 'approved'>('draft');
   const [loading, setLoading] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [message, setMessage] = useState('');
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -78,6 +81,19 @@ export default function Mtp() {
 
   return (
     <div className="space-y-6">
+      <Modal isOpen={showConfirm} onClose={() => setShowConfirm(false)} title="Confirm MTP Submission">
+        <p className="text-gray-600 mb-6">Are you sure you want to submit your MTP for approval? Once submitted, it cannot be edited.</p>
+        <div className="flex justify-end space-x-3">
+          <button onClick={() => setShowConfirm(false)} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">Cancel</button>
+          <button onClick={confirmSubmit} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Submit</button>
+        </div>
+      </Modal>
+      <Modal isOpen={!!message} onClose={() => setMessage('')} title="Notification">
+        <p className="text-gray-800 mb-6">{message}</p>
+        <div className="flex justify-end">
+          <button onClick={() => setMessage('')} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">OK</button>
+        </div>
+      </Modal>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Monthly Tour Plan (MTP)</h1>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { getPendingMTPs, approveMTP } from '../lib/api';
+import { Modal } from '../components/Modal';
 import { CheckCircle, Clock } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function Approvals() {
   const [pendingMTPs, setPendingMTPs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchApprovals();
@@ -26,9 +28,9 @@ export default function Approvals() {
     try {
       await approveMTP(id);
       setPendingMTPs(prev => prev.filter(m => m.id !== id));
-      alert("MTP Approved successfully!");
+      setMessage("MTP Approved successfully!");
     } catch (error) {
-      alert("Failed to approve MTP");
+      setMessage("Failed to approve MTP");
     }
   };
 
@@ -36,6 +38,12 @@ export default function Approvals() {
 
   return (
     <div className="space-y-6">
+      <Modal isOpen={!!message} onClose={() => setMessage('')} title="Notification">
+        <p className="text-gray-800 mb-6">{message}</p>
+        <div className="flex justify-end">
+          <button onClick={() => setMessage('')} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">OK</button>
+        </div>
+      </Modal>
       <h1 className="text-2xl font-bold text-gray-900">Manager Approvals</h1>
       <p className="text-gray-500">Review and approve MTPs for your team</p>
 
