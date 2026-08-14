@@ -57,24 +57,24 @@ export default function Mtp() {
     return !!plans[format(day, 'yyyy-MM-dd')];
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!isComplete) {
-      alert("Please fill the plan for all working days before submitting.");
+      setMessage("Please fill the plan for all working days before submitting.");
       return;
     }
-    
-    if (!window.confirm("Are you sure you want to submit your MTP for approval? Once submitted, it cannot be edited.")) {
-      return;
-    }
-    
+    setShowConfirm(true);
+  };
+
+  const confirmSubmit = async () => {
+    setShowConfirm(false);
     setLoading(true);
     try {
       await submitMTP(monthYear, plans);
       setStatus('submitted');
-      alert("MTP Submitted successfully to Manager for approval.");
+      setMessage("MTP Submitted successfully to Manager for approval.");
     } catch (error) {
       console.error("Error submitting MTP:", error);
-      alert("Failed to submit MTP.");
+      setMessage("Failed to submit MTP.");
     }
     setLoading(false);
   };
