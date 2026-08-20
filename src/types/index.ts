@@ -1,6 +1,5 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { Geolocation } from '@capacitor/geolocation';
 import React, { useState } from 'react';
 import {
   Fingerprint,
@@ -35,7 +34,7 @@ import {
   Sliders,
   Database
 } from 'lucide-react';
-import { UserProfile, UserRole, DcrCall, ExpenseRecord, SecondarySaleRecord, TeamMemberStatus } from './types/sfa';
+import { UserProfile, UserRole, DcrCall, ExpenseRecord, SecondarySaleRecord, TeamMemberStatus } from './sfa';
 
 // Demo Credentials preset matching Image 2
 const DEMO_USERS: UserProfile[] = [
@@ -94,7 +93,7 @@ const DEMO_USERS: UserProfile[] = [
 const INITIAL_CALLS: DcrCall[] = [
   {
     id: 'CALL-101',
-    doctorName: 'Dr. A. K. Verma',
+    doctorName: 'Dr. A. K. Verma (Mock)',
     specialty: 'Cardiologist',
     hospital: 'Max Super Specialty Hospital',
     time: '09:30 AM',
@@ -106,7 +105,7 @@ const INITIAL_CALLS: DcrCall[] = [
   },
   {
     id: 'CALL-102',
-    doctorName: 'Dr. Priya Sundaram',
+    doctorName: 'Dr. Priya Sundaram (Mock)',
     specialty: 'Diabetologist',
     hospital: 'Apollo Clinic Center',
     time: '11:15 AM',
@@ -118,7 +117,7 @@ const INITIAL_CALLS: DcrCall[] = [
   },
   {
     id: 'CALL-103',
-    doctorName: 'Dr. Rajesh Malhotra',
+    doctorName: 'Dr. Rajesh Malhotra (Mock)',
     specialty: 'General Physician',
     hospital: 'City Care Clinic',
     time: '02:00 PM',
@@ -130,7 +129,7 @@ const INITIAL_CALLS: DcrCall[] = [
   },
   {
     id: 'CALL-104',
-    doctorName: 'Dr. Sunita Rao',
+    doctorName: 'Dr. Sunita Rao (Mock)',
     specialty: 'Pediatrician',
     hospital: 'Fortis Healthcare',
     time: '04:30 PM',
